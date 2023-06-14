@@ -1,0 +1,45 @@
+{% load static %}
+{% include 'nav.html' %}
+<head>
+	<style type="text/css">
+		a{
+			text-decoration: none;
+		}
+		form{
+			text-align: center;
+		}
+		#id_username,#id_password{
+			color: #ffc107;
+			background: transparent;
+		}
+		li{
+			color:red;
+		}
+	</style>
+</head>
+<body>
+	<div class="div-style" style="min-height: 500px;">
+		<a href="../">
+            <svg style='position:absolute;' xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#ffc107" class="bi bi-house-door-fill mt-4" viewBox="0 0 16 16">
+                <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z"/>
+              </svg>
+        </a>
+		<a href="{% url 'account1:signup1' %}">
+		<svg style='position:absolute;' xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#ffc107" class="bi bi-backspace-reverse-fill mt-4 ms-5" viewBox="0 0 16 16">
+			<path d="M0 3a2 2 0 0 1 2-2h7.08a2 2 0 0 1 1.519.698l4.843 5.651a1 1 0 0 1 0 1.302L10.6 14.3a2 2 0 0 1-1.52.7H2a2 2 0 0 1-2-2V3zm9.854 2.854a.5.5 0 0 0-.708-.708L7 7.293 4.854 5.146a.5.5 0 1 0-.708.708L6.293 8l-2.147 2.146a.5.5 0 0 0 .708.708L7 8.707l2.146 2.147a.5.5 0 0 0 .708-.708L7.707 8l2.147-2.146z"/>
+		  </svg>
+        </a>
+		<h1 style="color: #ffc107">Log_in Form</h1><hr><hr><br>
+		<form method="post">
+			{% csrf_token %}
+			<!-- {{ form.as_p }} -->
+			<h5>{{form.username.label}}</h5>
+			<h5>{{form.username}}</h5>
+			<h5>{{form.password.label}}</h5>
+			<h5>{{form.password}}</h5>
+			<h5>{{form.errors}}</h5>
+		    <input type="submit" value="Log_in" class="btn btn-warning"><br><br>
+			<a href="{% url 'account1:signup1' %}" class="link-info">- New_Member :: Sign_up -</a>
+		</form>
+	</div>
+</body>	

@@ -1,0 +1,45 @@
+{% load static %}
+{% include 'nav.html' %}
+<head>
+	<style type="text/css">
+		a{
+			text-decoration: none;
+		}
+		form{
+			text-align: center;
+		}
+		#id_username,#id_password1,#id_password2{
+			color: #ffc107;
+			background: transparent;
+		}
+		li{
+			color:red;
+		}
+	</style>
+</head>
+<body>
+	<div class="div-style" style="min-height: 500px;">
+		<a href="{% url 'account1:login1' %}">
+            <svg style='position:absolute;' xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#ffc107" class="bi bi-backspace-fill mt-4" viewBox="0 0 16 16">
+                <path d="M15.683 3a2 2 0 0 0-2-2h-7.08a2 2 0 0 0-1.519.698L.241 7.35a1 1 0 0 0 0 1.302l4.843 5.65A2 2 0 0 0 6.603 15h7.08a2 2 0 0 0 2-2V3zM5.829 5.854a.5.5 0 1 1 .707-.708l2.147 2.147 2.146-2.147a.5.5 0 1 1 .707.708L9.39 8l2.146 2.146a.5.5 0 0 1-.707.708L8.683 8.707l-2.147 2.147a.5.5 0 0 1-.707-.708L7.976 8 5.829 5.854z"/>
+            </svg>
+        </a>
+		<h1 style="color: #ffc107">SignUp_Form</h1><hr><hr><br>
+		<form method="post">
+			{% csrf_token %}
+			<!-- {{ form.as_p }}<br><hr> -->
+			<h5>{{form.username.label}}</h5>
+			<h5>{{form.username}}</h5>
+			<h6>{{form.username.errors}}</h6>
+			<h5>{{form.password1.label}}</h5>
+			<h5>{{form.password1}}</h5>
+			<h6>{{form.password1.errors}}</h6>
+			<h5>{{form.password2.label}}</h5>
+			<h5>{{form.password2}}</h5>
+			<h6>{{form.password2.errors}}</h6>
+
+		    <input type="submit" value="Submit" class="btn btn-warning"><br><br>
+			<a href="{% url 'account1:login1' %}" class="link-info">- Already_a_MEMBER :: Log_in -</a>
+		</form>
+	</div>
+</body>	

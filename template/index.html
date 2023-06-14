@@ -1,0 +1,44 @@
+{% load static %}
+{% block content %}
+
+<body id="top">
+    <div class="main">     
+        {% if emp_in1 == True %}
+        <div class="land-screen">
+            <h1>FIND YOUR TRADE..</h1>
+            <h4>For Effective And Trusted Services..</h4>
+        </div>  
+        {% else %}
+        <div class="land-screen">
+            <h1>FIND YOUR TRADIE..</h1>
+            <h4>For Efficient And Trusted Workers..</h4>
+        </div>
+        {% endif %}
+        {% if user_in1 == False and user.is_authenticated and emp_in1 == False %}    
+            <div class="user_register">
+                <a href='{% url "mainApp1:userRegister1" %}'><input type="button" class="btn btn-warning" value="User Registration"></a>
+            </div>
+            <div class="emp_register">
+                <a href='{% url "mainApp1:empRegister1" %}'><input type="button" class="btn btn-warning" value="Employee Registration"></a>
+            </div>
+        {% endif %}
+        
+        <p class="w3-large" style="bottom:2vh;position:fixed;margin-left: 40%;">Powered by <a href="https://sajithnv.github.io/SAJITH_NV/" class="link-info" target="_blank">@Sajith NV</a></p>
+
+        <!-- Footer -->
+        <footer class="w3-text-white w3-xlarge sticky-bottom w3-right" style="bottom:2vh;">
+            <div class="socialMedia-icons">
+                <a href="https://www.instagram.com/_sajith_nv_/" target="_blank"><i
+                        class="fa fa-instagram w3-hover-opacity w3-transparent"></i></a>
+                <a href="tel:9072495440" target="_blank"><i class="fa fa-phone w3-hover-opacity w3-transparent"></i></a>
+                <a href="https://wa.me/+919072495440?text=Hi.. I have a query regarding your site." target="_blank"><i
+                        class="fa fa-whatsapp w3-hover-opacity w3-transparent "></i></a>
+            </div>
+        </footer>
+        <!-- End footer -->
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+</body>
+{% endblock %}

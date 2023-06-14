@@ -1,0 +1,178 @@
+{% include 'nav.html' %}
+{% load static%}
+{% block content %}
+
+<head>
+  <style>
+    form {
+      /* padding-left:40%; */
+      text-align: center;
+    }
+
+    .card1,
+    .emp_profile_card,
+    #product_id,
+    #id_e_name,
+    #id_phone_number,
+    #id_e_img,
+    #id_address,
+    #id_location,
+    #id_service_name,
+    #id_certificate_img,
+    #id_available {
+      color: #ffc107;
+      background: transparent;
+    }
+
+    bold {
+      color: aqua;
+    }
+
+    .align {
+      margin-left: 2%;
+    }
+
+    option {
+      color: black;
+    }
+
+    .card-inner-count {
+      border: 5px solid;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="div-style" style="min-height:500px;max-height: 50%;">
+    {% for i in emp_data1 %}
+    <a href="{% url 'mainApp1:employeeHistoryByUser1' i.e_name %}" class="float-end mt-4" title="Service History">
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-clock-history"
+        viewBox="0 0 16 16">
+        <path
+          d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022l-.074.997zm2.004.45a7.003 7.003 0 0 0-.985-.299l.219-.976c.383.086.76.2 1.126.342l-.36.933zm1.37.71a7.01 7.01 0 0 0-.439-.27l.493-.87a8.025 8.025 0 0 1 .979.654l-.615.789a6.996 6.996 0 0 0-.418-.302zm1.834 1.79a6.99 6.99 0 0 0-.653-.796l.724-.69c.27.285.52.59.747.91l-.818.576zm.744 1.352a7.08 7.08 0 0 0-.214-.468l.893-.45a7.976 7.976 0 0 1 .45 1.088l-.95.313a7.023 7.023 0 0 0-.179-.483zm.53 2.507a6.991 6.991 0 0 0-.1-1.025l.985-.17c.067.386.106.778.116 1.17l-1 .025zm-.131 1.538c.033-.17.06-.339.081-.51l.993.123a7.957 7.957 0 0 1-.23 1.155l-.964-.267c.046-.165.086-.332.12-.501zm-.952 2.379c.184-.29.346-.594.486-.908l.914.405c-.16.36-.345.706-.555 1.038l-.845-.535zm-.964 1.205c.122-.122.239-.248.35-.378l.758.653a8.073 8.073 0 0 1-.401.432l-.707-.707z" />
+        <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0v1z" />
+        <path
+          d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" />
+      </svg>
+    </a>
+    <a href="../">
+      <svg style='position:absolute;' xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#ffc107"
+        class="bi bi-backspace-fill mt-4" viewBox="0 0 16 16">
+        <path
+          d="M15.683 3a2 2 0 0 0-2-2h-7.08a2 2 0 0 0-1.519.698L.241 7.35a1 1 0 0 0 0 1.302l4.843 5.65A2 2 0 0 0 6.603 15h7.08a2 2 0 0 0 2-2V3zM5.829 5.854a.5.5 0 1 1 .707-.708l2.147 2.147 2.146-2.147a.5.5 0 1 1 .707.708L9.39 8l2.146 2.146a.5.5 0 0 1-.707.708L8.683 8.707l-2.147 2.147a.5.5 0 0 1-.707-.708L7.976 8 5.829 5.854z" />
+      </svg>
+    </a>
+    {% if i.verified %}
+    <h1 class="card-title" style="color: #ffc107;">{{i.e_name}}
+      <span class="top-0 start-100 translate-middle badge rounded-pill bg-transparent">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="#25cff2" class="bi bi-patch-check-fill"
+          viewBox="0 0 16 16">
+          <path
+            d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z" />
+        </svg>
+        <span class="visually-hidden">unread messages</span>
+      </span>
+    </h1>
+    {% else %}
+    <h1 class="card-title" style="color: #ffc107;">{{i.e_name}}</h1>
+    {% endif %}
+    <hr><br>
+
+    <div class="card mb-3 emp_profile_card" style="border: none">
+      <div class="row g-0">
+        <div class="col-md-3 rounded-circle m-3" style="border:2px solid #ffc107;width: 25%;">
+          <img src="../../{{i.e_img}}" class="rounded-circle" alt="Employee Image" style="width:100%;height: 100%;">
+        </div>
+
+        <div class="col-md-8">
+          <div class="card-body">
+            <h4 class="card-title" style="color: #ffc107;">{{i.get_service_name_display}}</h4>
+
+            {% if i.available and user_in1 %}
+            <a href='{% url "mainApp1:confirmRequest1" i.e_name %}'><input type="button"
+                class="btn btn-warning btn-sm float-end" value="Confirm Request"></a>
+            {% elif not i.available %}
+            <input type="button" class="btn btn-secondary disabled btn-sm float-end" value="Not Available">
+            {% endif %}
+
+
+            <h6 class="card-text">Job Location : <bold class="fw-bolder">{{i.get_location_display}}</bold>
+            </h6>
+            {% if i.available %}
+            <h6 class="card-text">Status : <bold class="bg-success fw-bolder ps-1 pe-2 rounded-pill">ON DUTY</bold>
+            </h6>
+            {% else %}
+            <h6 class="card-text">Status : <bold class="bg-danger fw-bolder ps-1 pe-2 rounded-pill">OFF DUTY</bold>
+            </h6>
+            {% endif %}
+            <h6 class="card-text">Address : {{i.address}}</h6>
+            <h6 class="card-text">Date_of_join: {{i.date}}</h6>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <hr>
+            <div class="card-group">
+              <div class="card ms-1 card1" title="Number Of Services ACCEPTED">
+                <h3 class="card-img-top card-inner-count rounded-circle border-info">
+                  <bold>{{accepted_count1}}</bold>
+                </h3>
+                <div class="card-body card-body1">
+                  <h6 class="card-title card-title1 w3-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                      class="bi bi-check" viewBox="0 0 16 16">
+                      <path
+                        d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                    </svg>
+                  </h6>
+                </div>
+              </div>
+              <div class="card ms-1 card1" title="Number Of Services COMPLETED">
+                <h3 class="card-img-top card-inner-count rounded-circle border-info">
+                  <bold>{{completed_count1}}</bold>
+                </h3>
+                <div class="card-body card-body1">
+                  <h6 class="card-title card-title1 w3-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                      class="bi bi-check-all" viewBox="0 0 16 16">
+                      <path
+                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
+                    </svg>
+                  </h6>
+                </div>
+              </div>
+              <div class="card ms-1 card1" title="Number Of Services LIKED">
+                <h3 class="card-img-top card-inner-count rounded-circle border-success">
+                  <bold>{{liked_count1}}</bold>
+                </h3>
+                <div class="card-body card-body1">
+                  <h6 class="card-title card-title1 w3-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                      class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                      <path
+                        d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z" />
+                    </svg>
+                  </h6>
+                </div>
+              </div>
+              <div class="card ms-1 card1" title="Number Of Services UNLIKED">
+                <h3 class="card-img-top card-inner-count rounded-circle border-danger">
+                  <bold>{{unliked_count1}}</bold>
+                </h3>
+                <div class="card-body card-body1">
+                  <h6 class="card-title card-title1 w3-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                      class="bi bi-hand-thumbs-down-fill" viewBox="0 0 16 16">
+                      <path
+                        d="M6.956 14.534c.065.936.952 1.659 1.908 1.42l.261-.065a1.378 1.378 0 0 0 1.012-.965c.22-.816.533-2.512.062-4.51.136.02.285.037.443.051.713.065 1.669.071 2.516-.211.518-.173.994-.68 1.2-1.272a1.896 1.896 0 0 0-.234-1.734c.058-.118.103-.242.138-.362.077-.27.113-.568.113-.856 0-.29-.036-.586-.113-.857a2.094 2.094 0 0 0-.16-.403c.169-.387.107-.82-.003-1.149a3.162 3.162 0 0 0-.488-.9c.054-.153.076-.313.076-.465a1.86 1.86 0 0 0-.253-.912C13.1.757 12.437.28 11.5.28H8c-.605 0-1.07.08-1.466.217a4.823 4.823 0 0 0-.97.485l-.048.029c-.504.308-.999.61-2.068.723C2.682 1.815 2 2.434 2 3.279v4c0 .851.685 1.433 1.357 1.616.849.232 1.574.787 2.132 1.41.56.626.914 1.28 1.039 1.638.199.575.356 1.54.428 2.591z" />
+                    </svg>
+                  </h6>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+</body>
+{% endblock %}

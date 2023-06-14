@@ -1,0 +1,164 @@
+{% include 'nav.html' %}
+{% load static%}
+{% block content %}
+
+<head>
+
+    <style>
+        form {
+            /* padding-left:40%; */
+            text-align: center;
+        }
+
+        .card1,
+        #product_id,
+        #id_e_name,
+        #id_phone_number,
+        #id_e_img,
+        #id_address,
+        #id_location,
+        #id_service_name,
+        #id_certificate_img,
+        #id_available {
+            color: #ffc107;
+            background: transparent;
+        }
+
+        bold {
+            color: aqua;
+        }
+
+        .align {
+            margin-left: 2%;
+        }
+
+        option {
+            color: black;
+        }
+
+        td,
+        th {
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        tbody tr:hover {
+            background-color: #363434ee;
+        }
+
+        .emp-name-link:hover {
+            background-color: #5f3b3bee;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="payment div-style">
+        <a href="../">
+            <svg style='position:absolute;' xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#ffc107"
+                class="bi bi-backspace-fill mt-4" viewBox="0 0 16 16">
+                <path
+                    d="M15.683 3a2 2 0 0 0-2-2h-7.08a2 2 0 0 0-1.519.698L.241 7.35a1 1 0 0 0 0 1.302l4.843 5.65A2 2 0 0 0 6.603 15h7.08a2 2 0 0 0 2-2V3zM5.829 5.854a.5.5 0 1 1 .707-.708l2.147 2.147 2.146-2.147a.5.5 0 1 1 .707.708L9.39 8l2.146 2.146a.5.5 0 0 1-.707.708L8.683 8.707l-2.147 2.147a.5.5 0 0 1-.707-.708L7.976 8 5.829 5.854z" />
+            </svg>
+        </a>
+
+        <h1 style="color: #ffc107">Service History</h1>
+        <hr>
+        <hr><br>
+        <div style="min-height: 53.5%;max-height: 55%; overflow: auto;">
+            {% if not history_data1 %}
+            <div class="m-5">
+                <h2 class="w3-text-red">Did'nt Complete Any Service!!!</h2>Try again after a<bold> Service</bold> ...
+            </div>
+            {% else %}
+            <table class="table table-borderless table-hover">
+                <thead>
+                    <tr>
+                        {% if user_in1 %}
+                        <th scope="col">Employee Name</th>
+                        {% elif emp_in1 %}
+                        <th scope="col">User Name</th>
+                        {% endif %}
+                        <th scope="col">Service Name</th>
+                        <th scope="col">Requested Time </th>
+                        <th scope="col">Rejected/Completed Time </th>
+                        <th scope="col">Feedback</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+
+                {% for i in history_data1 %}
+                <tbody>
+                    <tr>
+                        {% if user_in1 %}
+                        <td class="emp-name-link link-info"><a href='{% url "mainApp1:empProfileByUser2" i.e_name %}'
+                                class="link-info">{{i.e_name}}</a>
+                        </td>
+                        {% elif emp_in1 %}
+                        <td>
+                            <bold>{{i.u_name}}</bold>
+                        </td>
+                        {% endif %}
+                        <td>
+                            <bold>{{i.service_name}}</bold>
+                        </td>
+                        <td>
+                            <bold>{{i.date}}</bold>
+                        </td>
+                        <td>
+                            <bold>{{i.end_date}}</bold>
+                        </td>
+                        {% if i.feedback == 1 %}
+                        <td>
+                            <button type="button" class="btn btn-success btn-sm" disabled>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    class="bi bi-emoji-smile" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                    <path
+                                        d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
+                                </svg>
+                            </button>
+                        </td>
+                        {% elif i.feedback == 0 %}
+                        <td>
+                            <button type="button" class="btn btn-warning btn-sm disabled">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    class="bi bi-emoji-frown" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                    <path
+                                        d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
+                                </svg>
+                            </button>
+                        </td>
+                        {% else %}
+                        <td>
+                            <button type="button" class="btn btn-secondary btn-sm" disabled>
+                                Not Completed
+                            </button>
+                        </td>
+                        {% endif %}
+                        {% if i.rejected %}
+                        <td>
+                            <button type="button" class="btn btn-warning btn-sm disabled">Rejected</button>
+                        </td>
+                        {% elif i.cancelled %}
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm disabled">Cancelled</button>
+                        </td>
+                        {% elif i.completed %}
+                        <td>
+                            <button type="button" class="btn btn-success btn-sm disabled">Completed</button>
+                        </td>
+                        {% endif %}
+                    </tr>
+                </tbody>
+                {% endfor %}
+                {% endif %}
+        </div>
+    </div>
+</body>
+{% endblock %}

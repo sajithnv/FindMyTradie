@@ -1,0 +1,107 @@
+*{
+    color: #fff;
+}
+::-webkit-scrollbar{
+    width: 10px;
+}
+::-webkit-scrollbar-track{
+    box-shadow: inset 0 0 5px #ffc107;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb{
+   background: #ffc107;
+   border-radius: 10px;
+}
+.div-align{
+    padding-top: 3%;
+}
+body {
+  width: auto;
+  background: linear-gradient(rgba(0, 0, 0, 0.3) 50%,rgba(0, 0, 0, 0.3) 50%),url(../img/background1.jpeg) fixed center;
+  background-size: cover;
+}
+.title{
+    font-family: cursive;
+}
+.land-screen{
+    padding: 15%;
+}
+.land-screen h1{
+    color:yellowgreen;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.div-style{
+    padding:1% 3% 1% 3%;
+    border:1px solid #fff;
+    margin: 2%;
+    border-radius: 10px;
+}
+/* @media only screen and (max-width: 500px) {
+    #main {
+      margin-left: 0
+    }
+    .whatsapp-short , .top-short{
+      display: block;
+    }
+  }
+  @media only screen and (min-width: 500px) {
+    .whatsapp-short , .top-short{
+      display: none;
+    }
+  } */
+@media only screen and (max-width: 500px) {
+    .gallery-div{
+        height: 380px;
+        display: cover;
+        overflow-y: scroll;
+    }
+    .land-screen{
+        padding: 30% 5%;
+    }
+}
+
+.short-nav{
+    text-align: right;
+    padding: 0.5% 1%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    color: #fff;
+}
+nav,.short-nav{
+    backdrop-filter: blur(3px);
+}
+.short-nav-items{
+    text-decoration: none;
+    text-align: right;
+    color: #fff;
+}
+.short-nav-items:hover{
+      color:yellowgreen;
+}
+h3,.div-style h1{
+    text-align: center;
+    color: #fff;
+    padding: 1% 0%;
+}
+.socialMedia-icons{
+    width: 9%;
+    text-align: center;
+    display: inline-block;
+}
+.contact-btn{
+    margin-left: 7%;
+    width: 40%;
+    display: inline-block;
+}
+.user_register{
+    text-align: right;
+    padding-right: 8%;
+    width: 100%;
+    position: fixed;
+}
+.emp_register{
+    text-align: right;
+    width: 80%;
+    position: fixed;
+}
