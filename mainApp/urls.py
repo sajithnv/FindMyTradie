@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^searchWorkers/employeeHistoryByAdmin/(?P<e_name>[\w\-]+)$',employeeHistoryByUser,name='employeeHistoryByAdmin1'),
 
     # Admin urls
-    url(r'^userPageByAdmin/userProfileByAdmin/(?P<uname>[\w\-]+)$',userProfileByEmp,name='userProfileByAdmin1'),
+    url(r'^userPageByAdmin/userHistoryByAdmin/(?P<uname>[\w\-]+)$',userHistoryByAdmin,name='userHistoryByAdmin1'),
     url(r'^promote(?P<ename>[\w\-]+)$',promote,name='promote1'),
     url(r'^demote(?P<ename>[\w\-]+)$',demote,name='demote1'),
     url(r'^userPageByAdmin/$',userPageByAdmin,name='userPageByAdmin1'),

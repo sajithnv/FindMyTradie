@@ -15,7 +15,13 @@
     <!-- <script src='{% static "/js/script.js" %}'></script> -->
     <title>FindMyTradie</title></head>
 <body>
-	{% include 'nav.html' %}
+    {% include 'nav.html' %}
+    {% for m in messages %}
+    <div class="alert alert-success alert-dismissible fade show float-end me-3 mb-2" role="alert" style="min-width: 40%;">
+        {{m}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
 	{% include 'index.html' %}
 </body>
 </html>

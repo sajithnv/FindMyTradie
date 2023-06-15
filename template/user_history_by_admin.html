@@ -55,7 +55,7 @@
 <body>
     <div class="payment div-style">
 
-        <a href="../{{e_name1}}">
+        <a href="../">
             <svg style='position:absolute;' xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#ffc107"
                 class="bi bi-backspace-fill mt-4" viewBox="0 0 16 16">
                 <path
@@ -63,7 +63,7 @@
             </svg>
         </a>
 
-        <h1 style="color: #ffc107">Employee History</h1>
+        <h1 style="color: #ffc107">User History</h1>
         <hr>
         <hr><br>
         {% if not history_data1 %}
@@ -75,8 +75,8 @@
             <table class="table table-borderless table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">Employee Name</th>
                         <th scope="col">User Name</th>
+                        <th scope="col">Employee Name</th>
                         <th scope="col">Service Name</th>
                         <th scope="col">Requested Time </th>
                         <th scope="col">Rejected/Completed Time </th>
@@ -89,10 +89,10 @@
                 <tbody>
                     <tr>
                         <td>
-                            <bold>{{i.e_name}}</bold>
+                            <bold>{{i.u_name}}</bold>
                         </td>
                         <td>
-                            <bold>{{i.u_name}}</bold>
+                            <bold>{{i.e_name}}</bold>
                         </td>
                         <td>
                             <bold>{{i.service_name}}</bold>

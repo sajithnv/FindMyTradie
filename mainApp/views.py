@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.db.models import Q
-# from django.contrib import messages
+from django.contrib import messages
 from mainApp.forms import *
 from mainApp.models import *
 from django.utils.timezone import datetime as forProfitDateTime 
@@ -26,13 +26,17 @@ def userRegister(request):
     f1=f_user_register(request.POST or None)
     if f1.is_valid():
         f1.save()
+        messages.success(request, 'Hello %s!! User registration completed successfully.'% u_name)
+        messages.success(request, 'Your phone number is set as Whatsapp number. You can change it later from the "My Profile" option.')
         addWhatsappNumber(request)
         return redirect('mainApp1:index1')
     return render(request,'user_register.html',{'form':f1,'u_name':u_name})
 def addWhatsappNumber(request):
     u_name=request.user.username
-    phone_number = user_register.objects.filter(u_name=u_name)[0].phone_number
-    user_register.objects.filter(u_name=u_name).update(whatsapp_number=phone_number)
+    phone_number = user_register.objects.filter(u_name=u_name)
+    if phone_number:
+        phone_number = phone_number[0].phone_number
+        user_register.objects.filter(u_name=u_name).update(whatsapp_number=phone_number)
 
 def searchWorkers(request):
     user_in=False
@@ -55,13 +59,13 @@ def searchWorkers(request):
         based_on = 'both'
         return render(request,'search_workers.html',{'user_in1':user_in,'workers_data1':workers_data1,'workers_data2':workers_data2,'based_on1':based_on,'u_name':u_name,'emp_status1':emp_status})
     elif searched_trade:
-        workers_data = emp_register.objects.filter(service_name=searched_trade,available=True)
-        workers_data = emp_register.objects.filter(service_name=searched_trade,available=False)
+        workers_data1 = emp_register.objects.filter(service_name=searched_trade,available=True)
+        workers_data2 = emp_register.objects.filter(service_name=searched_trade,available=False)
         based_on = 'trade'
         return render(request,'search_workers.html',{'user_in1':user_in,'workers_data1':workers_data1,'workers_data2':workers_data2,'based_on1':based_on,'u_name':u_name,'emp_status1':emp_status})
     elif searched_location:
-        workers_data = emp_register.objects.filter(location=searched_location,available=True)
-        workers_data = emp_register.objects.filter(location=searched_location,available=False)
+        workers_data1 = emp_register.objects.filter(location=searched_location,available=True)
+        workers_data2 = emp_register.objects.filter(location=searched_location,available=False)
         based_on = 'location'
         return render(request,'search_workers.html',{'user_in1':user_in,'workers_data1':workers_data1,'workers_data2':workers_data2,'based_on1':based_on,'u_name':u_name,'emp_status1':emp_status})
     else:
@@ -74,6 +78,7 @@ def empRegister(request):
     f1=f_emp_register(request.POST or None, request.FILES)
     if f1.is_valid():
         f1.save()
+        messages.success(request, 'Hello %s!! Employee registration completed successfully.'% e_name)
         return redirect('mainApp1:index1')
     return render(request,'emp_register.html',{'form':f1,'e_name':e_name})
 
@@ -81,8 +86,6 @@ def toggleStatus(request):
     u_name= request.user.username
     emp_status = emp_register.objects.filter(e_name=u_name).values('available')
     limitations = services.objects.filter(Q(e_name=u_name,accepted=True)|Q(e_name=u_name,working=True)|Q(e_name=u_name,confirm_working=True))
-    # print(limitations,limitations.count())
-    # print(emp_status[0]['available'])
     
     if emp_status[0]['available'] == 0 and not limitations:
         emp_register.objects.filter(e_name=u_name).update(available=1)
@@ -170,7 +173,6 @@ def empProfileEdit(request,phone):
     t1 = f_emp_register_for_update(request.POST or None, request.FILES or None,instance=instance)
     if t1.is_valid():
         t1.save()
-        # messages.info(request,'Employee Profile UPDATED Successfuly.')
         return redirect('../')
     return render(request,'emp_profile_edit.html',{'form':t1,'emp_in1':emp_in,'u_name':u_name,'emp_status1':emp_status})
 
@@ -263,6 +265,24 @@ def employeeHistoryByUser(request,e_name):
 
     history_data = history_data[::-1]   #Reversing the list( Recent Completion data First)
     return render(request,'employee_history_by_user.html',{'u_name':u_name,'e_name1':e_name,'emp_in1':emp_in,'user_in1':user_in,'history_data1':history_data})
+
+def userHistoryByAdmin(request,uname):
+    user_in=False
+    emp_in=False
+    u_name= request.user.username
+    emp_status = emp_register.objects.filter(e_name=u_name,available=True)
+    registered_user_data = user_register.objects.filter(u_name=u_name)
+    if registered_user_data:
+        user_in=True
+
+    registered_emp_data = emp_register.objects.filter(e_name=u_name)
+    if registered_emp_data:
+        emp_in=True    
+
+    history_data = services.objects.filter(Q(u_name=uname,cancelled=True)|Q(u_name=uname,completed=True)|Q(u_name=uname,rejected=True))
+
+    history_data = history_data[::-1]   #Reversing the list( Recent Completion data First)
+    return render(request,'user_history_by_admin.html',{'u_name':u_name,'emp_in1':emp_in,'user_in1':user_in,'history_data1':history_data})
 
 def profit(request,based):
     is_emp = ''

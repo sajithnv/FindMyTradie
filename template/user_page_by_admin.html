@@ -62,7 +62,7 @@
                 style="max-width: 47%;background-color: transparent;border: solid white 2px;">
                 <div class="row g-0 overflow-auto">
                     <div class="card-body">
-                        <a href='{% url "mainApp1:userProfileByAdmin1" i.u_name %}' class="float-end ms-2" title="Service History">
+                        <a href="{% url 'mainApp1:userHistoryByAdmin1' i.u_name %}" class="float-end ms-2" title="Service History">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                                 class="bi bi-clock-history" viewBox="0 0 16 16">
                                 <path
