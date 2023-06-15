@@ -7,7 +7,7 @@ urlpatterns = [
     # Employee urls
     url(r'^empProfile/$',empProfile,name='empProfile1'),
     url(r'^empRegister/$',empRegister,name='empRegister1'),
-    url(r'^empProfile/toggleStatus/$',toggleStatus,name='toggleStatus1'),
+    url(r'^scheduledServices/toggleStatus/$',toggleStatus,name='toggleStatus1'),
     url(r'^empProfile/userModeView/(?P<e_name>[\w\-]+)$',empProfileByUser,name='empProfileByUserModeView1'),
     url(r'^empProfile/empProfileEdit/(?P<phone>\d+)$',empProfileEdit,name='empProfileEdit1'),
     url(r'^empProfile/serviceHistory/$',serviceHistory,name='empServiceHistory1'),

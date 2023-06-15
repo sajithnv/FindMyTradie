@@ -80,11 +80,14 @@ def empRegister(request):
 def toggleStatus(request):
     u_name= request.user.username
     emp_status = emp_register.objects.filter(e_name=u_name).values('available')
+    limitations = services.objects.filter(Q(e_name=u_name,accepted=True)|Q(e_name=u_name,working=True)|Q(e_name=u_name,confirm_working=True))
+    # print(limitations,limitations.count())
     # print(emp_status[0]['available'])
-    if emp_status[0]['available'] == 1:
-        emp_register.objects.filter(e_name=u_name).update(available=0)
-    else:
+    
+    if emp_status[0]['available'] == 0 and not limitations:
         emp_register.objects.filter(e_name=u_name).update(available=1)
+    else:
+        emp_register.objects.filter(e_name=u_name).update(available=0)
     return redirect('../')
 
 def empProfileByUser(request,e_name):
@@ -115,7 +118,7 @@ def empProfileByUser(request,e_name):
         'accepted_count1':accepted_count,
         'completed_count1':completed_count,
         'liked_count1':liked_count,
-        'unliked_count1':unliked_count
+        'unliked_count1':unliked_count,
         })
 def empProfile(request):
     user_in=False
@@ -357,6 +360,15 @@ def confirmRequest(request,e_name):
 
 def payAndAccept(request,id):
     services.objects.filter(id=id).update(requested=0,paid=1,accepted=1)
+    #change availability status of employee
+    toggleStatus(request) 
+    #delete remaining requests of the same employee
+    ename = services.objects.filter(id=id).values('e_name')[0]['e_name']
+    services.objects.filter(e_name=ename,requested=1).delete()
+    #delete remaining requests of user with same service name
+    uname = services.objects.filter(id=id).values('u_name')[0]['u_name']
+    service_name = services.objects.filter(id=id).values('service_name')[0]['service_name']
+    services.objects.filter(u_name=uname,requested=1,service_name=service_name).delete()
     return redirect('mainApp1:scheduledServices1')
 
 def reject(request,id):
@@ -377,6 +389,7 @@ def confirmWorking(request,id):
 
 def completed(request,id):
     services.objects.filter(id=id).update(working=0,confirm_working=0,completed=1,end_date=datetime.datetime.now())
+    toggleStatus(request)
     return redirect('mainApp1:user_empServiceHistory1_BysScheduledServices')
 
 def neg_feedback(request,id):
