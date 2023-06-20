@@ -15,12 +15,12 @@ def index(request):
     registered_user_data = user_register.objects.filter(u_name=u_name)
     if registered_user_data:
         user_in=True
-
     registered_emp_data = emp_register.objects.filter(e_name=u_name)
     if registered_emp_data:
         emp_in=True
-    
-    return render(request, 'main.html',{'user_in1':user_in,'emp_in1':emp_in,'u_name':u_name,'emp_status1':emp_status})
+    emp_notify_count = services.objects.filter(e_name=u_name,rejected=0,completed=0,cancelled=0).count()
+    user_notify_count = services.objects.filter(u_name=u_name,rejected=0,cancelled=0,feedback='').count()
+    return render(request, 'main.html',{'user_in1':user_in,'emp_in1':emp_in,'u_name':u_name,'emp_status1':emp_status,'emp_notify_count':emp_notify_count,'user_notify_count':user_notify_count})
 def userRegister(request):
     u_name=request.user.username
     f1=f_user_register(request.POST or None)
@@ -49,7 +49,8 @@ def searchWorkers(request):
     registered_emp_data = emp_register.objects.filter(e_name=u_name)
     if registered_emp_data:
         emp_in=True
-    
+    user_notify_count = services.objects.filter(u_name=u_name,rejected=0,cancelled=0,feedback='').count()
+
     searched_trade = request.GET.get('trade_name')
     searched_location = request.GET.get('location_name')
 
@@ -71,7 +72,14 @@ def searchWorkers(request):
     else:
         workers_data1 = emp_register.objects.filter(available=True)
         workers_data2 = emp_register.objects.filter(available=False)
-        return render(request,'search_workers.html',{'user_in1':user_in,'workers_data1':workers_data1,'workers_data2':workers_data2,'u_name':u_name,'emp_status1':emp_status})
+        return render(request,'search_workers.html',{
+            'user_in1':user_in,
+            'workers_data1':workers_data1,
+            'workers_data2':workers_data2,
+            'u_name':u_name,
+            'emp_status1':emp_status,
+            'user_notify_count':user_notify_count
+            })
 
 def empRegister(request):
     e_name=request.user.username
@@ -137,6 +145,9 @@ def empProfile(request):
     registered_emp_data = emp_register.objects.filter(e_name=e_name)
     if registered_emp_data:
         emp_in=True
+
+    emp_notify_count = services.objects.filter(e_name=e_name,rejected=0,completed=0,cancelled=0).count()
+
     emp_data = emp_register.objects.filter(e_name=e_name).all()
 
     received_count = services.objects.filter(e_name=e_name).count()
@@ -159,7 +170,8 @@ def empProfile(request):
         'completed_count1':completed_count,
         'incompleted_count1':incompleted_count,
         'liked_count1':liked_count,
-        'unliked_count1':unliked_count
+        'unliked_count1':unliked_count,
+        'emp_notify_count':emp_notify_count,
         })
 def empProfileEdit(request,phone):
     emp_in=False
@@ -227,7 +239,10 @@ def userProfile(request):
     register_data = user_register.objects.filter(u_name=u_name)
     if register_data:
         user_in=True
-    return render(request,'user_profile.html',{'user_data1':user_data,'u_name':u_name,'user_in1':user_in})
+    
+    user_notify_count = services.objects.filter(u_name=u_name,rejected=0,cancelled=0,feedback='').count()
+
+    return render(request,'user_profile.html',{'user_data1':user_data,'u_name':u_name,'user_in1':user_in,'user_notify_count':user_notify_count})
 
 def serviceHistory(request):
     user_in=False
@@ -361,7 +376,7 @@ def scheduledServices(request):
 
     emp_service_data = services.objects.filter(e_name=e_name,rejected=0,completed=0,cancelled=0) 
     emp_service_data = emp_service_data[::-1]   #Reversing the list( Recent Completion data First)
-
+    
     return render(request,'scheduled_services.html',{
         'u_name':u_name,
         'emp_status1':emp_status,
@@ -374,6 +389,7 @@ def scheduledServices(request):
 def confirmRequest(request,e_name):
     u_name= request.user.username
     emp_data = emp_register.objects.filter(e_name=e_name)
+    e_phone = emp_data[0].phone_number
     for i in emp_data:
        services.objects.create(u_name=u_name,e_name=i.e_name,service_name=emp_data[0].get_service_name_display(),requested=True)
     return redirect('mainApp1:scheduledServices1')

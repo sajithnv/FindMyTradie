@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="../static/img/favicon1.ico">
   <link rel="stylesheet" href='{% static "/css/style.css" %}'>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
@@ -70,9 +71,19 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'mainApp1:searchWorkers1' %}">Search Workers</a>
           </li>
+          {% if user_notify_count %}
+          <li class="nav-item">
+            <a class="nav-link position-relative" href="{% url 'mainApp1:scheduledServices1' %}">ScheduledServices
+              <span class="badge rounded-pill bg-danger position-absolute start-99 translate-middle p-1">
+                <small>{{user_notify_count}}</small>
+              </span>
+            </a>
+          </li>
+          {% else %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'mainApp1:scheduledServices1' %}">ScheduledServices</a>
           </li>
+          {% endif %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'mainApp1:userProfile1' %}">My Profile</a>
           </li>
@@ -80,9 +91,19 @@
             <a class="nav-link w3-text-red" href="{% url 'account1:logout1' %}">Log_Out</a>
           </li>
           {% elif user.is_authenticated and emp_in1 == True %}
+          {% if emp_notify_count %}
+          <li class="nav-item">
+            <a class="nav-link position-relative" href="{% url 'mainApp1:scheduledServices1' %}">ScheduledServices
+              <span class="badge rounded-pill bg-danger position-absolute start-99 translate-middle p-1">
+                <small>{{emp_notify_count}}</small>
+              </span>
+            </a>
+          </li>
+          {% else %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'mainApp1:scheduledServices1' %}">ScheduledServices</a>
           </li>
+          {% endif %}
           {% if emp_status1 %}
           <li class="nav-item" title="Employee_Status : On-duty / Available">
             <a class="nav-link" href="{% url 'mainApp1:toggleStatus1' %}">

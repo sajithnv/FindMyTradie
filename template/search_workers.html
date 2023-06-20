@@ -146,11 +146,11 @@
                                 <p>
                                     {% endif %}
                                     {% if i.available %}
-                                <h6 class="card-text">Status : <bold class="bg-success fw-bolder ps-2 pe-2 rounded-pill">ON
+                                <h6 class="card-text" title="ON-Duty / Available." >Status : <bold class="bg-success fw-bolder ps-2 pe-2 rounded-pill">ON
                                         DUTY</bold>
                                 </h6>
                                 {% else %}
-                                <h6 class="card-text">Status : <bold class="bg-danger fw-bolder ps-2 pe-2 rounded-pill">OFF
+                                <h6 class="card-text" title="OFF-Duty / Unavailable." >Status : <bold class="bg-danger fw-bolder ps-2 pe-2 rounded-pill">OFF
                                         DUTY</bold>
                                 </h6>
                                 {% endif %}
@@ -162,11 +162,11 @@
                                     {% else %}
                                     <a href='{% url "mainApp1:promote1" i.e_name %}'><input type="button" class="btn btn-success btn-sm  ms-1" value="Promote"></a>
                                     {% endif %}
-                                    <a href="../{{i.certificate_img}}" target="_blank" ><input type="button" class="btn btn-info btn-sm  ms-1" value="View Certificate"></a>
+                                    <a href="../{{i.certificate_img}}" target="_blank" ><input type="button" class="btn btn-info btn-sm  ms-1" value="View Proof"></a>
                                 {% elif i.available %}
                                 <a href='{% url "mainApp1:confirmRequest1" i.e_name %}'><input type="button" class="btn btn-warning btn-sm" value="Confirm Request"></a>
                                 {% else %}
-                                <input type="button" class="btn btn-secondary disabled btn-sm" value="Not Available">
+                                <input type="button" class="btn btn-secondary disabled btn-sm" value="Unavailable">
                                 {% endif %}
                             </div>
                         </div>
@@ -233,9 +233,9 @@
                                 <p>
                                 {% endif %}
                                 {% if i.available %}
-                                <h6 class="card-text">Status : <bold class="bg-success fw-bolder ps-2 pe-2 rounded-pill">ON DUTY</bold></h6>
+                                <h6 class="card-text" title="On-Duty / Available." >Status : <bold class="bg-success fw-bolder ps-2 pe-2 rounded-pill">ON DUTY</bold></h6>
                                 {% else %}
-                                <h6 class="card-text">Status : <bold class="bg-danger fw-bolder ps-2 pe-2 rounded-pill">OFF
+                                <h6 class="card-text" title="OFF-Duty / Unavailable.">Status : <bold class="bg-danger fw-bolder ps-2 pe-2 rounded-pill">OFF
                                         DUTY</bold>
                                 </h6>
                                 {% endif %}
@@ -247,11 +247,12 @@
                                     {% else %}
                                     <a href='{% url "mainApp1:promote1" i.e_name %}'><input type="button" class="btn btn-success btn-sm  ms-1" value="Promote"></a>
                                     {% endif %}
-                                    <a href="../{{i.certificate_img}}" target="_blank" ><input type="button" class="btn btn-info btn-sm  ms-1" value="View Certificate"></a>
+                                    <a href="../{{i.certificate_img}}" target="_blank" ><input type="button" class="btn btn-info btn-sm  ms-1" value="View Proof"></a>
                                 {% elif i.available %}
-                                <a href='{% url "mainApp1:confirmRequest1" i.e_name %}'><input type="button" class="btn btn-warning btn-sm" value="Confirm Request"></a>
+                                <a href="https://wa.me/+91 {{i.phone_number}}?text=Hello {{i.e_name}}.. You have received a new request." target="_blank">
+                                <a href='{% url "mainApp1:confirmRequest1" i.e_name %}'><input type="button" class="btn btn-warning btn-sm" value="Confirm Request"></a></a>
                                 {% else %}
-                                <input type="button" class="btn btn-secondary disabled btn-sm" value="Not Available">
+                                <input type="button" class="btn btn-secondary disabled btn-sm" value="Unavailable">
                                 {% endif %}
                             </div>
                         </div>

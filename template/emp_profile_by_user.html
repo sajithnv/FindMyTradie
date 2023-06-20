@@ -95,17 +95,17 @@
             <a href='{% url "mainApp1:confirmRequest1" i.e_name %}'><input type="button"
                 class="btn btn-warning btn-sm float-end" value="Confirm Request"></a>
             {% elif not i.available and user_in1 %}
-            <input type="button" class="btn btn-secondary disabled btn-sm float-end" value="Not Available">
+            <input type="button" class="btn btn-secondary disabled btn-sm float-end" value="Unavailable">
             {% endif %}
 
 
             <h6 class="card-text">Job Location : <bold class="fw-bolder">{{i.get_location_display}}</bold>
             </h6>
             {% if i.available %}
-            <h6 class="card-text">Status : <bold class="bg-success fw-bolder ps-1 pe-2 rounded-pill">ON DUTY</bold>
+            <h6 class="card-text" title="On-Duty / Available." >Status : <bold class="bg-success fw-bolder ps-1 pe-2 rounded-pill">ON DUTY</bold>
             </h6>
             {% else %}
-            <h6 class="card-text">Status : <bold class="bg-danger fw-bolder ps-1 pe-2 rounded-pill">OFF DUTY</bold>
+            <h6 class="card-text" title="OFF-Duty / Unavailable.">Status : <bold class="bg-danger fw-bolder ps-1 pe-2 rounded-pill">OFF DUTY</bold>
             </h6>
             {% endif %}
             <h6 class="card-text">Address : {{i.address}}</h6>

@@ -29,7 +29,7 @@
 			{% csrf_token %}
 			<!-- {{ form.as_p }}<br><hr> -->
 			<h5>{{form.username.label}}</h5>
-			<h5>{{form.username}}</h5>
+			<h5><input type="text" name="username" maxlength="150" autocapitalize="none" autocomplete="username" autofocus="" required="" placeholder="Cannot Update!!" id="id_username"></h5>
 			<h6>{{form.username.errors}}</h6>
 			<h5>{{form.password1.label}}</h5>
 			<h5>{{form.password1}}</h5>

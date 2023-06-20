@@ -45,7 +45,7 @@ class emp_register(models.Model):
     address=models.CharField('Address',max_length=100)
     location=models.CharField('Location',choices=LOCATIONS,default='1',max_length=20)
     service_name=models.CharField('Trade Name',choices=TRADES,max_length=30)
-    certificate_img=models.ImageField('Trade Certificate',upload_to='.\static\img\certificate_img')
+    certificate_img=models.ImageField('Trade Proof',upload_to='.\static\img\certificate_img')
     available=models.BooleanField(default=True)
     verified=models.BooleanField(default=False)
     date=models.DateTimeField(auto_now_add=True)
